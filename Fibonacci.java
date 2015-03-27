@@ -29,21 +29,39 @@ public class Fibonacci {
 		}
 	}
 
-	public List<Integer> upTo(int to) {
+	public List<Integer> subset(int to) {
 		if (to < 1) {
 			return new ArrayList<Integer>();
 		}
 		computeAndStore(to);
-		return between(0, to - 1);
+		return subset(0, to - 1);
 	}
 
-	public List<Integer> between(int from, int to) {
+	public List<Integer> subset(int from, int to) {
 		if (from < 1 || to < 1 || from > to) {
 			return new ArrayList<Integer>();
 		}
 
 		computeAndStore(to);
 		return storage.subList(from - 1, to);
+	}
+
+	public int sum(int from, int to) {
+		int sum = 0;
+		List<Integer> subset = subset(from, to);
+		for (Integer fib : subset) {
+			sum += fib;
+		}
+		return sum;
+	}
+
+	public int sum(int to) {
+		int sum = 0;
+		List<Integer> subset = subset(to);
+		for (Integer fib : subset) {
+			sum += fib;
+		}
+		return sum;
 	}
 
 	public int fib(int n) {
